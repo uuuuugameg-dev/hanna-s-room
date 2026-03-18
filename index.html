@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="color-scheme" content="dark">
-  <meta name="supported-color-schemes" content="dark">
   <title>はんなの部屋</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,14 +12,12 @@
     :root {
       --bg: #0d1117;
       --blue-glow: #2a4a6b;
-      --street-amber: #e8c87a;
       --street-amber-dim: #c4a55a;
       --text-bright: #ffffff;
       --text-main: #cddce8;
       --text-sub: #8ab0cc;
       --text-muted: #4a7a9a;
       --accent: #6baed6;
-      --accent-soft: #4a8ab8;
       --tag-diary-bg: rgba(107, 174, 214, 0.08);
       --tag-diary-border: rgba(107, 174, 214, 0.25);
       --tag-work-bg: rgba(232, 200, 122, 0.06);
@@ -31,10 +28,8 @@
       --font-sans: 'Zen Kaku Gothic New', sans-serif;
       --font-en: 'DM Serif Display', serif;
     }
-
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; color-scheme: only dark; }
-
     body {
       background-color: var(--bg);
       color: var(--text-main);
@@ -44,32 +39,24 @@
       min-height: 100vh;
       overflow-x: hidden;
     }
-
-    /* 夜の背景グラデーション */
     body::before {
       content: '';
       position: fixed;
       inset: 0;
       background:
         radial-gradient(ellipse 80% 60% at 15% 20%, rgba(30, 60, 95, 0.45) 0%, transparent 60%),
-        radial-gradient(ellipse 60% 40% at 85% 70%, rgba(20, 45, 70, 0.35) 0%, transparent 55%),
-        radial-gradient(ellipse 40% 30% at 50% 0%, rgba(232, 200, 122, 0.05) 0%, transparent 50%);
+        radial-gradient(ellipse 60% 40% at 85% 70%, rgba(20, 45, 70, 0.35) 0%, transparent 55%);
       pointer-events: none;
       z-index: 0;
     }
-
-    /* 窓から差し込む光のライン */
     body::after {
       content: '';
       position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
+      top: 0; left: 0; right: 0;
       height: 2px;
       background: linear-gradient(90deg, transparent 0%, rgba(107, 174, 214, 0.4) 30%, rgba(232, 200, 122, 0.2) 65%, transparent 100%);
       z-index: 1;
     }
-
     .container {
       max-width: 660px;
       margin: 0 auto;
@@ -77,13 +64,38 @@
       position: relative;
       z-index: 2;
     }
-
-    /* ヘッダー */
+    /* ナビ */
+    nav {
+      padding: 24px 0 0;
+      display: flex;
+      gap: 24px;
+      align-items: center;
+    }
+    nav a {
+      font-family: var(--font-en);
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      letter-spacing: 0.1em;
+      transition: color 0.25s;
+      padding-bottom: 2px;
+      border-bottom: 1px solid transparent;
+    }
+    nav a:hover, nav a.active {
+      color: var(--accent);
+      border-bottom-color: rgba(107, 174, 214, 0.4);
+    }
+    nav .nav-title {
+      font-family: var(--font-serif);
+      font-size: 0.9rem;
+      color: var(--text-sub);
+      margin-right: auto;
+      text-decoration: none;
+    }
     header {
-      padding: 72px 0 48px;
+      padding: 48px 0 40px;
       animation: fadeUp 1s ease both;
     }
-
     .site-title {
       font-family: var(--font-serif);
       font-size: clamp(1.7rem, 5vw, 2.2rem);
@@ -92,7 +104,6 @@
       letter-spacing: 0.1em;
       margin-bottom: 6px;
     }
-
     .site-subtitle {
       font-family: var(--font-en);
       font-style: italic;
@@ -101,20 +112,17 @@
       letter-spacing: 0.1em;
       margin-bottom: 28px;
     }
-
     .bio {
       font-size: 0.84rem;
       color: var(--text-sub);
       line-height: 2.1;
       margin-bottom: 22px;
     }
-
     .links {
       display: flex;
       gap: 22px;
       flex-wrap: wrap;
     }
-
     .links a {
       font-size: 0.78rem;
       color: var(--text-muted);
@@ -125,86 +133,76 @@
       border-bottom: 1px solid transparent;
       padding-bottom: 1px;
     }
-
-    .links a:hover {
-      color: var(--accent);
-      border-bottom-color: rgba(107, 174, 214, 0.4);
-    }
-
+    .links a:hover { color: var(--accent); border-bottom-color: rgba(107, 174, 214, 0.4); }
     .divider {
       height: 1px;
       background: linear-gradient(90deg, var(--blue-glow) 0%, transparent 80%);
-      margin: 40px 0;
+      margin: 36px 0;
       opacity: 0.6;
     }
-
-    /* 投稿 */
-    .posts {
-      animation: fadeUp 1s 0.15s ease both;
+    /* セクション */
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 24px;
     }
-
-    .post {
-      margin-bottom: 64px;
+    .section-title {
+      font-family: var(--font-serif);
+      font-size: 0.9rem;
+      color: var(--text-sub);
+      letter-spacing: 0.12em;
     }
-
+    .section-more {
+      font-family: var(--font-en);
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      letter-spacing: 0.1em;
+      transition: color 0.25s;
+    }
+    .section-more:hover { color: var(--accent); }
+    .posts { animation: fadeUp 1s 0.15s ease both; }
+    .post { margin-bottom: 48px; }
     .post-meta {
       display: flex;
       align-items: center;
       gap: 12px;
       margin-bottom: 14px;
     }
-
     .post-date {
       font-family: var(--font-en);
       font-size: 0.72rem;
       color: var(--text-muted);
       letter-spacing: 0.12em;
     }
-
     .post-tag {
       font-size: 0.68rem;
       padding: 2px 10px;
       border-radius: 2px;
       letter-spacing: 0.08em;
     }
-
-    .tag-diary {
-      background: var(--tag-diary-bg);
-      border: 1px solid var(--tag-diary-border);
-      color: var(--accent);
-    }
-
-    .tag-work {
-      background: var(--tag-work-bg);
-      border: 1px solid var(--tag-work-border);
-      color: var(--street-amber-dim);
-    }
-
+    .tag-diary { background: var(--tag-diary-bg); border: 1px solid var(--tag-diary-border); color: var(--accent); }
+    .tag-work { background: var(--tag-work-bg); border: 1px solid var(--tag-work-border); color: var(--street-amber-dim); }
     .post-title {
       font-family: var(--font-serif);
-      font-size: clamp(1.05rem, 3vw, 1.25rem);
+      font-size: clamp(1.05rem, 3vw, 1.2rem);
       font-weight: 500;
       color: var(--text-bright);
       letter-spacing: 0.06em;
       line-height: 1.65;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
     }
-
     .post-body {
       font-size: 0.85rem;
       color: var(--text-main);
       line-height: 2.15;
       letter-spacing: 0.04em;
     }
-
-    .post-body p + p {
-      margin-top: 14px;
-    }
-
-    /* 作品カード */
+    .post-body p + p { margin-top: 12px; }
     .work-card {
-      margin-top: 18px;
-      padding: 22px 26px;
+      margin-top: 16px;
+      padding: 20px 24px;
       background: var(--card-bg);
       border: 1px solid var(--card-border);
       border-radius: 3px;
@@ -212,7 +210,6 @@
       overflow: hidden;
       transition: border-color 0.3s;
     }
-
     .work-card::before {
       content: '';
       position: absolute;
@@ -220,11 +217,7 @@
       height: 1px;
       background: linear-gradient(90deg, transparent, rgba(107, 174, 214, 0.35), transparent);
     }
-
-    .work-card:hover {
-      border-color: rgba(107, 174, 214, 0.3);
-    }
-
+    .work-card:hover { border-color: rgba(107, 174, 214, 0.25); }
     .work-title {
       font-family: var(--font-serif);
       font-size: 0.98rem;
@@ -233,71 +226,50 @@
       margin-bottom: 8px;
       letter-spacing: 0.06em;
     }
-
     .work-desc {
       font-size: 0.79rem;
       color: var(--text-sub);
       line-height: 2;
-      letter-spacing: 0.04em;
     }
-
     .work-genre {
       display: inline-block;
-      margin-top: 12px;
+      margin-top: 10px;
       font-size: 0.68rem;
       color: var(--street-amber-dim);
       font-family: var(--font-en);
       letter-spacing: 0.12em;
     }
-
-    .read-more {
-      display: inline-block;
-      margin-top: 14px;
-      font-size: 0.76rem;
-      color: var(--text-muted);
-      text-decoration: none;
-      letter-spacing: 0.08em;
-      font-family: var(--font-en);
-      border-bottom: 1px solid rgba(74, 122, 154, 0.35);
-      padding-bottom: 1px;
-      transition: color 0.25s, border-color 0.25s;
-    }
-
-    .read-more:hover {
-      color: var(--accent);
-      border-bottom-color: var(--accent);
-    }
-
     footer {
-      padding: 36px 0 60px;
+      padding: 36px 0 56px;
       animation: fadeUp 1s 0.3s ease both;
     }
-
     .footer-text {
       font-size: 0.7rem;
       color: var(--text-muted);
       letter-spacing: 0.12em;
       font-family: var(--font-en);
     }
-
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(14px); }
       to   { opacity: 1; transform: translateY(0); }
     }
-
     @media (max-width: 600px) {
-      header { padding: 48px 0 36px; }
-      .post  { margin-bottom: 48px; }
+      header { padding: 36px 0 28px; }
+      .post  { margin-bottom: 40px; }
     }
-
     ::-webkit-scrollbar { width: 4px; }
     ::-webkit-scrollbar-track { background: var(--bg); }
     ::-webkit-scrollbar-thumb { background: var(--blue-glow); border-radius: 2px; }
   </style>
 </head>
 <body>
-
   <div class="container">
+    <nav>
+      <a href="index.html" class="nav-title">はんなの部屋</a>
+      <a href="diary.html">日記</a>
+      <a href="works.html">作品</a>
+      <a href="#">about</a>
+    </nav>
 
     <header>
       <h1 class="site-title">はんなの部屋</h1>
@@ -309,36 +281,36 @@
       <div class="links">
         <a href="#">X (@hanna)</a>
         <a href="#">Pixiv</a>
-        <a href="#">about</a>
       </div>
     </header>
 
     <div class="divider"></div>
 
     <main class="posts">
-<article class="post">
-  <div class="post-meta">
-    <span class="post-date">2026.03.16</span>
-    <span class="post-tag tag-diary">日記</span>
-  </div>
-  <h2 class="post-title">HP作ってみた</h2>
-  <div class="post-body">
-    <p>今日はたくさん歩いた。気分転換になったし、案外歩けた。</p>
-    <p>あとホームページ作ってみた！noteもいいけど個人のHPずっと作りたかったんだよねぇー！いえーい</p>
-    <p>公共の場に書きにくいこととかねw 恥ずかしい作品とか置いておこうかなとか思ってるけどどのように運用していくのかは気分次第です〜！</p>
-  </div>
-</article>
+
+      <div class="section-header">
+        <span class="section-title">最近の日記</span>
+        <a href="diary.html" class="section-more">すべて見る →</a>
+      </div>
+
       <article class="post">
         <div class="post-meta">
-          <span class="post-date">2026.03.17</span>
+          <span class="post-date">2026.03.16</span>
           <span class="post-tag tag-diary">日記</span>
         </div>
-        <h2 class="post-title">はじめまして</h2>
+        <h2 class="post-title">HP作ってみた</h2>
         <div class="post-body">
-          <p>サイトを作りました。ここは私の部屋です。日記と小説を置いていきます。</p>
-          <p>のんびり更新していくので、気が向いたらまた来てください。</p>
+          <p>今日はたくさん歩いた。気分転換になったし、案外歩けた。</p>
+          <p>あとホームページ作ってみた！noteもいいけど個人のHPずっと作りたかったんだよねぇー！いえーい</p>
         </div>
       </article>
+
+      <div class="divider"></div>
+
+      <div class="section-header">
+        <span class="section-title">作品</span>
+        <a href="works.html" class="section-more">すべて見る →</a>
+      </div>
 
       <article class="post">
         <div class="post-meta">
@@ -354,7 +326,6 @@
           <p class="work-desc">あらすじをここに。どんなお話か、どんな雰囲気かを書いておくといいかも。</p>
           <span class="work-genre">短編小説 / SF</span>
         </div>
-        <a href="#" class="read-more">続きを読む →</a>
       </article>
 
     </main>
@@ -364,7 +335,6 @@
     <footer>
       <p class="footer-text">© はんなの部屋</p>
     </footer>
-
   </div>
 </body>
 </html>
